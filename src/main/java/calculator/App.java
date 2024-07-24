@@ -9,7 +9,8 @@ public class App {
     public static void main(String[] args) {
         Queue<Integer> q = new LinkedList<>();
         Scanner sc = new Scanner(System.in);
-        Calculator calc = new Calculator();
+        CircleCalculator circleCalc = new CircleCalculator();
+        ArithmeticCalculator arithmeticCalc = new ArithmeticCalculator();
 
         while (true) {
             System.out.print("사칙연산:b / 원의 넓이: c 를 입력해주세요: ");
@@ -21,19 +22,18 @@ public class App {
                 int secondNum = Integer.parseInt(sc.nextLine());
                 System.out.print("사칙연산 기호를 입력하세요: ");
                 char op = sc.nextLine().charAt(0);
-
                 try {
-                    calc.calculate(firstNum, secondNum, op);
-                    System.out.println("결과: " + calc.getResult());
+                    arithmeticCalc.calculate(firstNum, secondNum, op);
+                    System.out.println("결과: " + arithmeticCalc.getResult());
 
                     System.out.println("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력 시 삭제)");
                     String input = sc.nextLine();
-                    if (input.equals("remove")) calc.removeResult();
+                    if (input.equals("remove")) arithmeticCalc.removeResult();
 
                     System.out.println("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
                     input = sc.nextLine();
                     if (input.equals("inquiry")) {
-                        calc.inquiryResults();
+                        arithmeticCalc.inquiryResults();
                     }
 
                     System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
@@ -48,10 +48,9 @@ public class App {
             } else if (type == 'c') {
                 System.out.print("반지름을 입력하세요: ");
                 float radius = Float.parseFloat(sc.nextLine());
-
                 try {
-                    calc.calculateCircleArea(radius);
-                    calc.inquiryCircleAreaResults();
+                    circleCalc.calculateCircleArea(radius);
+                    circleCalc.inquiryResults();
                     System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
                     var input = sc.nextLine();
 
