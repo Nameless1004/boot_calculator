@@ -1,6 +1,8 @@
 package calculator;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class App {
@@ -8,8 +10,8 @@ public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        int[] results = new int[3];
-        int index = 0;
+        Queue<Integer> q = new LinkedList<Integer>();
+
         while (true) {
             System.out.print("첫 번째 숫자를 입력하세요: ");
             int firstNum = Integer.parseInt(sc.nextLine());
@@ -43,22 +45,15 @@ public class App {
             }
 
             System.out.println("결과: " + result);
-            if(index == results.length){
-                for(int i = 0; i < results.length - 1; i++){
-                    // swap
-                    int tmp = results[i];
-                    results[i] = results[i+1];
-                    results[i+1] = tmp;
-                }
-                results[results.length - 1] = result;
-            }
-            else{
-                results[index++] = result;
-            }
-            
-            System.out.println(Arrays.toString(results));
-            System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
+            // 가장 먼저 저장된 결과를 빼기 위해 FIFO queue 사용
+            q.add(result);
+
+            System.out.println("가장 먼저 저장된 연산 결과를 삭제하시겠습니까? (remove 입력 시 삭제)");
             String input = sc.nextLine();
+            if(input.equals("remove")) q.poll();
+
+            System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
+            input = sc.nextLine();
 
             if (input.equals("exit")) {
                 return;
