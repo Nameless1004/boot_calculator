@@ -9,6 +9,7 @@ public class Calculator {
         circleAreacalcResults = new LinkedList<>();
     }
 
+    // 파이는 변하지 않는 상수값이여서 static final로 하였습니다.
     private static final float PI = 3.14159265359f;
 
     private Queue<Integer> calcResults;
