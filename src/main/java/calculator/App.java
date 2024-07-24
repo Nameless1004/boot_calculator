@@ -52,6 +52,13 @@ public class App {
             String input = sc.nextLine();
             if(input.equals("remove")) q.poll();
 
+            System.out.println("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
+            input = sc.nextLine();
+            if(input.equals("inquiry")) {
+                // 큐 순회하면서 출력
+                q.forEach(System.out::println);
+            }
+
             System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
             input = sc.nextLine();
 
