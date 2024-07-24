@@ -9,7 +9,7 @@ public class Calculator {
 
     private int result = 0;
     public int getResult(){ return result; }
-    public void setLatestResult(int result){ this.result = result; }
+    public void setResult(int result){ this.result = result; }
 
 
     public int calculate(int firstNum, int secondNum, char op) throws Exception{
@@ -36,5 +36,9 @@ public class Calculator {
 
         queue.add(result);
         return result;
+    }
+
+    public void removeResult() {
+        queue.poll();
     }
 }
