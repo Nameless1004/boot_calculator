@@ -7,8 +7,12 @@ public class Calculator {
     private Queue<Integer> queue = new LinkedList<Integer>();
     public Queue<Integer> getQueue(){ return queue; }
 
+    private int result = 0;
+    public int getResult(){ return result; }
+    public void setLatestResult(int result){ this.result = result; }
+
+
     public int calculate(int firstNum, int secondNum, char op) throws Exception{
-        int result = 0;
         switch (op) {
             case '+':
                 result = firstNum + secondNum;
