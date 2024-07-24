@@ -9,6 +9,7 @@ public class ArithmeticCalculator extends Calculator{
             case '-' -> new SubtractOperator();
             case '*' -> new MultiplyOperator();
             case '/' -> new DivideOperator();
+            case '%' -> new ModeOperator();
             default -> throw new Exception("+ - * / 중 하나를 입력해주세요.");
         };
 
