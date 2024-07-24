@@ -6,8 +6,8 @@ import java.util.Queue;
 import java.util.Scanner;
 
 public class App {
-
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
 
         Queue<Integer> q = new LinkedList<Integer>();
