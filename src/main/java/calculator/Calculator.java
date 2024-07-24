@@ -5,14 +5,27 @@ import java.util.Queue;
 
 public class Calculator {
     public Calculator(){
-        queue = new LinkedList<>();
+        calcResults = new LinkedList<>();
+        circleAreacalcResults = new LinkedList<>();
     }
-    private Queue<Integer> queue;
+
+    private static final float PI = 3.14159265359f;
+
+    private Queue<Integer> calcResults;
+    private Queue<Float> circleAreacalcResults;
+
+    public Queue<Float> getCircleAreaCalcResults() { return circleAreacalcResults; }
+    public void setCircleAreaCalcResults(Queue<Float> q) {this.circleAreacalcResults = q; }
 
     private int result = 0;
     public int getResult(){ return result; }
     public void setResult(int result){ this.result = result; }
 
+    public float calculateCircleArea(float radius){
+        var res = PI * radius * radius;
+        circleAreacalcResults.add(res);
+        return res;
+    }
 
     public int calculate(int firstNum, int secondNum, char op) throws Exception{
         switch (op) {
@@ -36,15 +49,20 @@ public class Calculator {
                 throw new Exception("+ - * / 중 하나를 입력해주세요.");
         }
 
-        queue.add(result);
+        calcResults.add(result);
         return result;
     }
 
     public void inquiryResults(){
-        queue.forEach(System.out::println);
+        calcResults.forEach(System.out::println);
+    }
+    
+    // 원 넓이 조회
+    public void inquiryCircleAreaResults(){
+        circleAreacalcResults.forEach(System.out::println);
     }
 
     public void removeResult() {
-        queue.poll();
+        calcResults.poll();
     }
 }
