@@ -4,7 +4,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Calculator {
-    private Queue<Integer> queue = new LinkedList<Integer>();
+    public Calculator(){
+        queue = new LinkedList<>();
+    }
+    private Queue<Integer> queue;
 
     private int result = 0;
     public int getResult(){ return result; }
