@@ -30,8 +30,7 @@ public class App {
                 System.out.println("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
                 input = sc.nextLine();
                 if (input.equals("inquiry")) {
-                    // 큐 순회하면서 출력
-                    calc.getQueue().forEach(System.out::println);
+                    calc.inquiryResults();
                 }
 
                 System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");

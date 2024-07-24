@@ -5,7 +5,6 @@ import java.util.Queue;
 
 public class Calculator {
     private Queue<Integer> queue = new LinkedList<Integer>();
-    public Queue<Integer> getQueue(){ return queue; }
 
     private int result = 0;
     public int getResult(){ return result; }
@@ -36,6 +35,10 @@ public class Calculator {
 
         queue.add(result);
         return result;
+    }
+
+    public void inquiryResults(){
+        queue.forEach(System.out::println);
     }
 
     public void removeResult() {
