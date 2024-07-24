@@ -14,12 +14,16 @@ public class App {
 
         while (true) {
             System.out.print("사칙연산:b / 원의 넓이: c 를 입력해주세요: ");
-            var type = sc.nextLine().charAt(0);
+            var calcTypeLine = sc.nextLine();
+            if(calcTypeLine.equals("")){
+                continue;
+            }
+            var type = calcTypeLine.charAt(0);
             if (type == 'b') {
                 System.out.print("첫 번째 숫자를 입력하세요: ");
-                int firstNum = Integer.parseInt(sc.nextLine());
+                Number firstNum = NumberParser.parse(sc.nextLine());
                 System.out.print("두 번째 숫자를 입력하세요: ");
-                int secondNum = Integer.parseInt(sc.nextLine());
+                Number secondNum = NumberParser.parse(sc.nextLine());
                 System.out.print("사칙연산 기호를 입력하세요: ");
                 char op = sc.nextLine().charAt(0);
                 try {
@@ -30,10 +34,21 @@ public class App {
                     String input = sc.nextLine();
                     if (input.equals("remove")) arithmeticCalc.removeResult();
 
-                    System.out.println("저장된 연산결과를 조회하시겠습니까? (inquiry 입력 시 조회)");
+                    System.out.println("저장된 연산결과를 조회하시겠습니까? (y 입력 시 조회)");
                     input = sc.nextLine();
-                    if (input.equals("inquiry")) {
-                        arithmeticCalc.inquiryResults();
+                    if (input.equals("y")) {
+                        System.out.println("저장된 연산결과를 중 n값보다 큰 연산결과를 조회하시겠습니까? (y 입력 시 조회, 아니면 연산결과 조회)");
+                        input = sc.nextLine();
+                        if(input.equals("y")){
+                            System.out.print("n: ");
+                            var num = Double.parseDouble(sc.nextLine());
+                            arithmeticCalc.inquiryFiltering((x)->{
+                                return x.doubleValue() > num;
+                            });
+                        }
+                        else{
+                            arithmeticCalc.inquiryResults();
+                        }
                     }
 
                     System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");

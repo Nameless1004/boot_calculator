@@ -1,7 +1,10 @@
 package calculator;
 
+import calculator.Operator.*;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public class ArithmeticCalculator extends Calculator{
     public ArithmeticCalculator(){
@@ -30,17 +33,20 @@ public class ArithmeticCalculator extends Calculator{
     private Map<OperatorType, Operatable> operator;
 
     public OperatorType getOperatorType(char opCode) throws Exception{
-        var t = OperatorType.valueOf(String.valueOf(opCode));
         if(!opCodeMap.containsKey(opCode)) throw new Exception("+ - * / % 중에 하나를 입력하세요.");
         return opCodeMap.get(opCode);
     }
 
-    public double calculate(int firstNum, int secondNum, char opCode) throws Exception{
+    public <T extends Number> T calculate(T firstNum, T secondNum, char opCode) throws Exception{
         // 인터페이스를 활용한 다형성으로 구현하였습니다.
         // 나누기의 경우 따로 예외를 던지게 하였습니다.
-        result = operator.get(getOperatorType(opCode)).operate(firstNum,secondNum);
+        result = operator.get(getOperatorType(opCode)).operate(firstNum, secondNum);
         calcResults.add(result);
-        return result;
+        return (T)result;
+    }
+
+    public void inquiryFiltering(Predicate<Number> predicate){
+        calcResults.stream().filter(predicate).forEach(System.out::println);
     }
 
 }

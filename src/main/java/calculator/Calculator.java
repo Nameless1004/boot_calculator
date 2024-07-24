@@ -11,13 +11,12 @@ public class Calculator {
     // 파이는 변하지 않는 상수값이여서 static final로 하였습니다.
     protected static final double PI = 3.14159265359;
 
-    protected Queue<Double> calcResults;
-    public Queue<Double> getCalcResults() { return calcResults; }
+    protected Queue<Number> calcResults;
+    public Queue<Number> getCalcResults() { return calcResults; }
 
-    protected double result = 0;
-    public double getResult(){ return result; }
-    public void setResult(double result){ this.result = result; }
-
+    protected Number result = 0;
+    public Number getResult(){ return result; }
+    public void setResult(Number result){ this.result = result; }
 
 
     public void inquiryResults(){
