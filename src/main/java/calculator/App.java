@@ -55,6 +55,7 @@ public class App {
             else{
                 results[index++] = result;
             }
+            
             System.out.println(Arrays.toString(results));
             System.out.println("더 계산하시겠습니까? (exit 입력 시 종료)");
             String input = sc.nextLine();
