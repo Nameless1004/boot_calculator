@@ -1,7 +1,7 @@
 package calculator;
 
 public class App {
-    
+
     static CircleCalculator circleCalc = new CircleCalculator();
     static ArithmeticCalculator arithmeticCalc = new ArithmeticCalculator();
     static Input input = new Input();
@@ -16,19 +16,22 @@ public class App {
     public static void main(String[] args) {
 
         while (true) {
-            var calcTypeLine = input.inputString("사칙연산:b / 원의 넓이: c 를 입력해주세요");
+            var calcTypeLine = input.inputString("사칙연산:a / 원의 넓이: c 를 입력해주세요");
             if (calcTypeLine.equals("")) {
                 continue;
             }
             var type = calcTypeLine.charAt(0);
             try {
-                if (type == 'b') {
-                    arithmeticCalc();
-                } else if (type == 'c') {
-                    CircleAreaCalc();
-                } else {
-                    System.out.println("b 혹은 c 를 입력해주세요.");
-                    continue;
+                switch (type){
+                    case 'a':
+                        arithmeticCalc();
+                        break;
+                    case 'c':
+                        CircleAreaCalc();
+                        break;
+                    default:
+                        System.out.println("a 혹은 c 를 입력해주세요.");
+                        continue;
                 }
             }
             catch (Exception e){
@@ -65,7 +68,7 @@ public class App {
         }
     }
 
-    private static void CircleAreaCalc() throws Exception {
+    private static void CircleAreaCalc() {
         double radius = input.inputDouble("반지름을 입력하세요");
         circleCalc.calculateCircleArea(radius);
         circleCalc.inquiryResults();
