@@ -12,7 +12,7 @@ public class CircleCalculator extends Calculator{
 
     @Override
     public void calculate() throws Exception {
-        var res = PI * radius * radius;
+        double res = PI * radius * radius;
         recorder.record(res);
     }
 

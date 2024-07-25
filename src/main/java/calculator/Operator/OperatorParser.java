@@ -25,7 +25,7 @@ public class OperatorParser {
         opCodeToOpType.put('%', OperatorType.MOD);
     }
 
-    private void initOpTypeToOperator(){
+    private void initOpTypeToOperator() {
         opTypeToOperator = new HashMap<>();
         opTypeToOperator.put(OperatorType.ADD, new AddOperator());
         opTypeToOperator.put(OperatorType.SUB, new SubtractOperator());

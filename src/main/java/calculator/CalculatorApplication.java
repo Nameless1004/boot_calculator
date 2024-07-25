@@ -1,6 +1,7 @@
 package calculator;
 
 
+import calculator.Operator.Operatable;
 import calculator.Operator.OperatorParser;
 
 public class CalculatorApplication {
@@ -49,7 +50,7 @@ public class CalculatorApplication {
         firstNum = input.inputNumber("첫 번째 숫자를 입력하세요");
         secondNum = input.inputNumber("두 번째 숫자를 입력하세요");
         char op = input.inputChar("사칙연산 기호를 입력하세요");
-        var operator = operatorParser.parse(op);
+        Operatable operator = operatorParser.parse(op);
         currentCalculator.setOperator(operator);
         currentCalculator.setOperands(firstNum, secondNum);
         currentCalculator.calculate();
@@ -62,7 +63,7 @@ public class CalculatorApplication {
 
         if (input.inputString("저장된 연산결과를 조회하시겠습니까? (y 입력 시 조회)").equals("y")) {
             if (input.inputString("저장된 연산결과를 중 n값보다 큰 연산결과를 조회하시겠습니까? (y 입력 시 조회, 아니면 연산결과 조회)").equals("y")) {
-                var num = input.inputDouble("n");
+                double num = input.inputDouble("n");
                 currentCalculator.inquiryFiltering((x) -> {
                     return x.doubleValue() > num;
                 });
