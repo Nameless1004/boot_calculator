@@ -5,32 +5,38 @@ import java.util.List;
 import java.util.Queue;
 import java.util.stream.Stream;
 
-public class ResultRecorder<T extends Number> {
+public class ResultRecorder {
     public ResultRecorder() {
         queue = new LinkedList<>();
     }
 
-    private T recordedNum;
-    private Queue<T> queue;
+    private Number recordedNum;
+    private Queue<Number> queue;
 
-    public void record(T num){
-        recordedNum = num;
-        queue.offer(num);
+    public void record(Number num){
+        if(num.doubleValue() % 1 ==0.0){
+            recordedNum = num.intValue();
+            queue.offer(num.intValue());
+        }
+        else{
+            recordedNum = num;
+            queue.offer(num);
+        }
     }
 
     public void remove(){
-        queue.remove();
+        queue.poll();
     }
 
-    public Stream<T> stream(){
+    public Stream<Number> stream(){
         return queue.stream();
     }
 
-    public List<T> getResultList(){
+    public List<Number> getResultList(){
         return stream().toList();
     }
 
-    public T getLatestResult() {
+    public Number getLatestResult() {
         return recordedNum;
     }
 }

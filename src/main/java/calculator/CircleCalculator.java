@@ -1,11 +1,21 @@
 package calculator;
 
-import java.util.LinkedList;
-
 public class CircleCalculator extends Calculator{
-    public double calculateCircleArea(double radius){
+    private double radius;
+
+    @Override
+    public void setOperator(char operator) {
+        throw new UnsupportedOperationException("지원하지 않습니다.");
+    }
+
+    @Override
+    public void calculate() throws Exception {
         var res = PI * radius * radius;
         recorder.record(res);
-        return res;
+    }
+
+    @Override
+    public void setOperands(Number... nums) {
+        radius = nums[0].doubleValue();
     }
 }

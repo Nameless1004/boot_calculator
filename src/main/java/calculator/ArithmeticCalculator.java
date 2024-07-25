@@ -4,27 +4,37 @@ import calculator.Operator.OperatorParser;
 import java.util.function.Predicate;
 
 public class ArithmeticCalculator extends Calculator{
-    public ArithmeticCalculator(){
+
+    private char opCode;
+    private Number first;
+    private Number second;
+    @Override
+    public void setOperator(char operator) {
+        opCode = operator;
     }
 
+    @Override
+    public void setOperands(Number... nums) throws Exception{
+        if(nums.length != 2){
+            throw new Exception("필요 피연산자 수는 2개 입니다.");
+        }
+        first = nums[0];
+        second = nums[1];
+    }
 
-    private OperatorParser opParser = new OperatorParser();
-
-    public <T extends Number> T calculate(T firstNum, T secondNum, char opCode) throws Exception{
+    @Override
+    public void calculate() throws Exception {
         // 인터페이스를 활용한 다형성으로 구현하였습니다.
         // 나누기의 경우 따로 예외를 던지게 하였습니다.
 
         /*  자바에서 제네릭에는 원시타입이 들어가지 않고, Integer도 받아야하고 Double도 받아야하므로
             상위 클래스인 Number로 타입을 지정해주었습니다. */
         var operator = opParser.parse(opCode);
-        var res = operator.operate(firstNum, secondNum);
+        var res = operator.operate(first, second);
         recorder.record(res);
-        return (T)res;
     }
 
-    // 람다식으로 조건을 받고 stream()의 filter를 사용해 필터링을 해주었습니다.
-    public void inquiryFiltering(Predicate<Number> predicate){
-        recorder.stream().filter(predicate).forEach(System.out::println);
-    }
+
+    private OperatorParser opParser = new OperatorParser();
 
 }
