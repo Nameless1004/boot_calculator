@@ -15,7 +15,8 @@ public class CircleCalculator extends Calculator{
     }
 
     @Override
-    public void setOperands(Number... nums) {
+    public void setOperands(Number... nums) throws Exception{
+        if(nums.length != 1) throw new Exception("필요 피연산자의 개수는 1개 입니다.");
         radius = nums[0].doubleValue();
     }
 }

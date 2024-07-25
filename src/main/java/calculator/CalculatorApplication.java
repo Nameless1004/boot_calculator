@@ -32,12 +32,11 @@ public class CalculatorApplication {
                 System.out.println(e.getMessage());
                 continue;
             }
-            isExit = exitApp();
-        }
-    }
 
-    private boolean exitApp() {
-        return input.inputString("더 계산하시겠습니까? (exit 입력 시 종료)").equals("exit");
+            if(input.inputString("더 계산하시겠습니까? (exit 입력 시 종료)").equals("exit")){
+                isExit = true;
+            }
+        }
     }
 
     private void arithmeticCalc(Calculator currentCalculator) throws Exception {
