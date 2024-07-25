@@ -3,8 +3,8 @@ package calculator;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Calculator {
-    public Calculator(){
+public abstract class Calculator {
+    public Calculator() {
         recorder = new ResultRecorder<>();
     }
 
@@ -13,10 +13,13 @@ public class Calculator {
 
     protected ResultRecorder<Number> recorder;
 
-    public Number getResult(){ return recorder.getLatestResult(); }
+
+    public Number getResult() {
+        return recorder.getLatestResult();
+    }
 
 
-    public void inquiryResults(){
+    public void inquiryResults() {
         recorder.stream().forEach(System.out::println);
     }
 
@@ -24,4 +27,5 @@ public class Calculator {
     public void removeResult() {
         recorder.remove();
     }
+
 }

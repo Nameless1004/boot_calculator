@@ -10,10 +10,12 @@ public class ResultRecorder<T extends Number> {
         queue = new LinkedList<>();
     }
 
+    private T recordedNum;
     private Queue<T> queue;
 
     public void record(T num){
-        queue.add(num);
+        recordedNum = num;
+        queue.offer(num);
     }
 
     public void remove(){
@@ -29,6 +31,6 @@ public class ResultRecorder<T extends Number> {
     }
 
     public T getLatestResult() {
-        return queue.peek();
+        return recordedNum;
     }
 }

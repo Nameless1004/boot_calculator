@@ -7,6 +7,7 @@ public class ArithmeticCalculator extends Calculator{
     public ArithmeticCalculator(){
     }
 
+
     private OperatorParser opParser = new OperatorParser();
 
     public <T extends Number> T calculate(T firstNum, T secondNum, char opCode) throws Exception{
