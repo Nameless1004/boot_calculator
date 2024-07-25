@@ -33,8 +33,4 @@ public class ArithmeticCalculator extends Calculator{
         var res = operator.operate(first, second);
         recorder.record(res);
     }
-
-
-    private OperatorParser opParser = new OperatorParser();
-
 }

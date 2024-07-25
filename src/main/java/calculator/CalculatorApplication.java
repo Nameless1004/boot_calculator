@@ -2,7 +2,6 @@ package calculator;
 
 
 public class CalculatorApplication {
-    private Calculator currentCalculator;
     private final CircleCalculator circleCalc = new CircleCalculator();
     private final ArithmeticCalculator arithmeticCalc = new ArithmeticCalculator();
     private final Input input = new Input();
@@ -19,10 +18,10 @@ public class CalculatorApplication {
             try {
                 switch (type){
                     case 'a':
-                        arithmeticCalc();
+                        arithmeticCalc(arithmeticCalc);
                         break;
                     case 'c':
-                        circleAreaCalc();
+                        circleAreaCalc(circleCalc);
                         break;
                     default:
                         System.out.println("a 혹은 c 를 입력해주세요.");
@@ -41,8 +40,7 @@ public class CalculatorApplication {
         return input.inputString("더 계산하시겠습니까? (exit 입력 시 종료)").equals("exit");
     }
 
-    private void arithmeticCalc() throws Exception {
-        currentCalculator = arithmeticCalc;
+    private void arithmeticCalc(Calculator currentCalculator) throws Exception {
         Number firstNum, secondNum;
 
         firstNum = input.inputNumber("첫 번째 숫자를 입력하세요");
@@ -71,9 +69,8 @@ public class CalculatorApplication {
         }
     }
 
-    private void circleAreaCalc() throws Exception {
+    private void circleAreaCalc(Calculator currentCalculator) throws Exception {
         double radius = input.inputDouble("반지름을 입력하세요");
-        currentCalculator = circleCalc;
         currentCalculator.setOperands(radius);
         currentCalculator.calculate();
         currentCalculator.inquiryResults();
