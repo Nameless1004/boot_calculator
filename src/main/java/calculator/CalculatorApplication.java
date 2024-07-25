@@ -44,6 +44,8 @@ public class CalculatorApplication {
         }
     }
 
+    // 여기 부분은 공통적인 부분을 묶고 싶었는데 과제에 명시된건 둘이 받은 인풋이 다르고
+    // 결과를 저장한 후의 행동이 달라서 분리를 해놨습니다. ㅠㅠ
     private void arithmeticCalc(Calculator currentCalculator) throws Exception {
         Number firstNum, secondNum;
 

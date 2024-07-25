@@ -13,6 +13,7 @@ public class NumberParser {
 
         try {
             number = Double.parseDouble(input);
+            // number가 정수일 때는 Integer로 바꾸는 처리입니다.
             if(number.doubleValue() % 1 == 0.0){
                 number = number.intValue();
             }

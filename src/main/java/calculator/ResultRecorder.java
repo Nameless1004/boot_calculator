@@ -33,10 +33,6 @@ public class ResultRecorder {
         return queue.stream();
     }
 
-    public List<Number> getResultList(){
-        return stream().toList();
-    }
-
     public Number getLatestResult() {
         return latestResult;
     }

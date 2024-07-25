@@ -17,8 +17,9 @@ public abstract class Calculator {
     protected OperatorParser opParser;
     public abstract void setOperator(Operatable operator);
 
-    // 원을 구하는 계산기와 그냥 계산기를 필요한 피연산자 개수가 달라서 추상화를 못해서
-    // calculate()를 추상함수로 만들고 setOperands에서 가변인자를 통해 각각 처리를 해주었습니다.
+    // calculate를 추상함수로 만들려했었는데 원넓이 계산기와 사칙연산계산기의 피연산자 수가 달라서 실패했는데
+    // 이를 해결하기 위해 setOperands에서 가변인자를 통해 각각 다른 피연산자 개수에 대해 처리를 해주었고 그 후에
+    // calculate() 함수를 추상 함수로 만들었습니다.
     public abstract void setOperands(Number... nums) throws Exception;
 
     public abstract void calculate() throws Exception;
