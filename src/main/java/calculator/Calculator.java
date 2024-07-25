@@ -1,5 +1,6 @@
 package calculator;
 
+import calculator.Operator.Operatable;
 import calculator.Operator.OperatorParser;
 
 import java.util.function.Predicate;
@@ -14,7 +15,7 @@ public abstract class Calculator {
     protected static final double PI = 3.14159265359;
     protected ResultRecorder recorder;
     protected OperatorParser opParser;
-    public abstract void setOperator(char operator);
+    public abstract void setOperator(Operatable operator);
 
     public abstract void setOperands(Number... nums) throws Exception;
 

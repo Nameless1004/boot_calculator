@@ -1,15 +1,19 @@
 package calculator;
 
 
+import calculator.Operator.OperatorParser;
+
 public class CalculatorApplication {
-    private final CircleCalculator circleCalc = new CircleCalculator();
-    private final ArithmeticCalculator arithmeticCalc = new ArithmeticCalculator();
+
+    private final Calculator circleCalc = new CircleCalculator();
+    private final Calculator arithmeticCalc = new ArithmeticCalculator();
     private final Input input = new Input();
+    private final OperatorParser operatorParser = new OperatorParser();
 
     public void start(){
         boolean isExit = false;
 
-        while (isExit == false) {
+        while (!isExit) {
             var calcTypeLine = input.inputString("사칙연산:a / 원의 넓이: c 를 입력해주세요");
             if (calcTypeLine.equals("")) {
                 continue;
@@ -45,8 +49,8 @@ public class CalculatorApplication {
         firstNum = input.inputNumber("첫 번째 숫자를 입력하세요");
         secondNum = input.inputNumber("두 번째 숫자를 입력하세요");
         char op = input.inputChar("사칙연산 기호를 입력하세요");
-
-        currentCalculator.setOperator(op);
+        var operator = operatorParser.parse(op);
+        currentCalculator.setOperator(operator);
         currentCalculator.setOperands(firstNum, secondNum);
         currentCalculator.calculate();
 

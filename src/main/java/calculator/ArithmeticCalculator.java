@@ -1,16 +1,17 @@
 package calculator;
+import calculator.Operator.Operatable;
 import calculator.Operator.OperatorParser;
 
 import java.util.function.Predicate;
 
 public class ArithmeticCalculator extends Calculator{
 
-    private char opCode;
+    private Operatable operator;
     private Number first;
     private Number second;
     @Override
-    public void setOperator(char operator) {
-        opCode = operator;
+    public void setOperator(Operatable operator) {
+        this.operator = operator;
     }
 
     @Override
@@ -29,7 +30,7 @@ public class ArithmeticCalculator extends Calculator{
 
         /*  자바에서 제네릭에는 원시타입이 들어가지 않고, Integer도 받아야하고 Double도 받아야하므로
             상위 클래스인 Number로 타입을 지정해주었습니다. */
-        var operator = opParser.parse(opCode);
+
         var res = operator.operate(first, second);
         recorder.record(res);
     }

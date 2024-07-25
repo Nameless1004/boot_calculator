@@ -1,10 +1,12 @@
 package calculator;
 
+import calculator.Operator.Operatable;
+
 public class CircleCalculator extends Calculator{
     private double radius;
 
     @Override
-    public void setOperator(char operator) {
+    public void setOperator(Operatable operator) {
         throw new UnsupportedOperationException("지원하지 않습니다.");
     }
 
