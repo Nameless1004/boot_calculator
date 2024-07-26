@@ -9,34 +9,30 @@ public class OperatorParser {
     private Map<OperatorType, Operatable> opTypeToOperator;
 
     public OperatorParser() {
-        init();
-    }
-
-    private void init() {
-        initOpCodeToOpType();
-        initOpTypeToOperator();
-    }
-
-    private void initOpCodeToOpType() {
         opCodeToOpType = new HashMap<>();
-        opCodeToOpType.put('+', OperatorType.ADD);
-        opCodeToOpType.put('-', OperatorType.SUB);
-        opCodeToOpType.put('*', OperatorType.MUL);
-        opCodeToOpType.put('/', OperatorType.DIV);
-        opCodeToOpType.put('%', OperatorType.MOD);
+        opTypeToOperator = new HashMap<>();
     }
 
-    private void initOpTypeToOperator() {
-        opTypeToOperator = new HashMap<>();
-        opTypeToOperator.put(OperatorType.ADD, new AddOperator());
-        opTypeToOperator.put(OperatorType.SUB, new SubtractOperator());
-        opTypeToOperator.put(OperatorType.MUL, new MultiplyOperator());
-        opTypeToOperator.put(OperatorType.DIV, new DivideOperator());
-        opTypeToOperator.put(OperatorType.MOD, new ModOperator());
+    public void addOperator(char opCharacter, OperatorType type, Operatable operator) {
+        opCodeToOpType.put(opCharacter, type);
+        opTypeToOperator.put(type, operator);
     }
 
     public Operatable parse(char opCode) throws Exception {
-        if (!opCodeToOpType.containsKey(opCode)) throw new Exception("+ - * / % 중에 하나를 입력하세요.");
+        if (!opCodeToOpType.containsKey(opCode)){
+            StringBuilder sb = new StringBuilder();
+            sb.append(toString());
+            sb.append(" 중에 하나를 입력하세요.");
+            throw new Exception(sb.toString());
+        }
         return opTypeToOperator.get(opCodeToOpType.get(opCode));
+    }
+
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        opCodeToOpType.forEach((x, y)-> sb.append(" " + "'" +x+ "'" + " "));
+        sb.append("]");
+        return sb.toString();
     }
 }

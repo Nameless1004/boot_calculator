@@ -21,7 +21,7 @@ public class CircleAreaCalculator extends Calculator {
 
 
     @Override
-    public Number calculate(Number num) {
+    protected Number calculate(Number num) {
         double radius = num.doubleValue();
         return radius * radius * Math.PI;
     }

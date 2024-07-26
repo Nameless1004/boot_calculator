@@ -24,27 +24,27 @@ public abstract class Calculator {
         throw new Exception("지원하지 않는 기능입니다.");
     }
 
-    protected Number getResult() {
+    protected final Number getResult() {
         return resultRecorder.getLatestResult();
     }
 
-    protected void inquiryResults() {
+    protected final void inquiryResults() {
         resultRecorder.stream().forEach(System.out::println);
     }
 
-    protected void inquiryResults(Predicate<Number> predicate) {
+    protected final void inquiryResults(Predicate<Number> predicate) {
         resultRecorder.stream().filter(predicate).forEach(System.out::println);
     }
 
-    protected void removeHead() {
+    protected final void removeHead() {
         resultRecorder.remove();
     }
 
-    protected void resetResults() {
+    protected final void resetResults() {
         resultRecorder.reset();
     }
 
-    protected ArrayList<Number> getResults() {
+    protected final  ArrayList<Number> getResults() {
         return (ArrayList<Number>)resultRecorder.stream().toList();
     }
 }

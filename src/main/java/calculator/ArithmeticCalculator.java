@@ -1,7 +1,6 @@
 package calculator;
 
-import calculator.Operator.Operatable;
-import calculator.Operator.OperatorParser;
+import calculator.Operator.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,6 +13,12 @@ public class ArithmeticCalculator extends Calculator {
 
     public ArithmeticCalculator() {
         operatorParser = new OperatorParser();
+        operatorParser.addOperator('+', OperatorType.ADD, new AddOperator());
+        operatorParser.addOperator('-', OperatorType.SUB, new SubtractOperator());
+        operatorParser.addOperator('*', OperatorType.MUL, new MultiplyOperator());
+        operatorParser.addOperator('/', OperatorType.DIV, new DivideOperator());
+        operatorParser.addOperator('%', OperatorType.MOD, new ModOperator());
+        operatorParser.addOperator('^', OperatorType.MOD, new PowOperator());
     }
 
     @Override
@@ -24,7 +29,7 @@ public class ArithmeticCalculator extends Calculator {
         System.out.print("두 번째 숫자를 입력하세요: ");
         Number secondNumber = NumberParser.parse(scanner.nextLine());
 
-        System.out.print("연산자(+, -, *, /, % )를 입력하세요: ");
+        System.out.print(operatorParser.toString() + "를 입력하세요: ");
         char op = scanner.nextLine().charAt(0);
 
         calculate(firstNumber, secondNumber, op);
@@ -55,7 +60,7 @@ public class ArithmeticCalculator extends Calculator {
     }
 
     @Override
-    public Number calculate(Number num1, Number num2, char op)  throws Exception {
+    protected Number calculate(Number num1, Number num2, char op)  throws Exception {
 
         double firstNum = num1.doubleValue();
         double secondNum = num2.doubleValue();

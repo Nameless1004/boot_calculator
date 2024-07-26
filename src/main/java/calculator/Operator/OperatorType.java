@@ -1,5 +1,5 @@
 package calculator.Operator;
 
 public enum OperatorType {
-    ADD,SUB,MUL,DIV,MOD
+    ADD,SUB,MUL,DIV,MOD,POW
 }
