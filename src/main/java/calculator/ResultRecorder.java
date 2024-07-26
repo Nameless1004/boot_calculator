@@ -35,4 +35,8 @@ public class ResultRecorder {
     public Number getLatestResult() {
         return latestResult;
     }
+
+    public void reset() {
+        queue.remove();
+    }
 }

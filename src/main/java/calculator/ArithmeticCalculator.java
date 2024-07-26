@@ -3,25 +3,67 @@ package calculator;
 import calculator.Operator.Operatable;
 import calculator.Operator.OperatorParser;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.function.Predicate;
+
 public class ArithmeticCalculator extends Calculator {
 
-    private final OperatorParser opParser;
+    private Operatable operatable;
+    private OperatorParser operatorParser;
 
     public ArithmeticCalculator() {
-        opParser = new OperatorParser();
+        operatorParser = new OperatorParser();
     }
 
     @Override
-    public void calculate(Object... input) throws Exception {
-        if (input.length != 3) {
-            throw new Exception("사칙연산을 하기 위해선 (n: Number), (n: Number), (opCode : Character)를 입력해주세요");
-        } else if (!(input[0] instanceof Number) || !(input[1] instanceof Number) || !(input[2] instanceof Character)) {
-            throw new Exception("사칙연산을 하기 위해선 (n: Number), (n: Number), (opCode : Character)를 입력해주세요");
+    public void onUpdate() throws Exception {
+        System.out.print("첫 번째 숫자를 입력하세요: ");
+        Number firstNumber = NumberParser.parse(scanner.nextLine());
+
+        System.out.print("두 번째 숫자를 입력하세요: ");
+        Number secondNumber = NumberParser.parse(scanner.nextLine());
+
+        System.out.print("연산자(+, -, *, /, % )를 입력하세요: ");
+        char op = scanner.nextLine().charAt(0);
+
+        calculate(firstNumber, secondNumber, op);
+
+        System.out.println("결과 : " + resultRecorder.getLatestResult());
+
+        System.out.print("맨 처음 결과를 삭제하시겠습니까? (remove: 삭제): ");
+        String input = scanner.nextLine();
+
+        if (input.equals("remove")) {
+            removeHead();
         }
 
-        char opCode = (char) input[2];
-        Operatable operator = opParser.parse(opCode);
-        var res = operator.operate((Number) input[0], (Number) input[1]);
-        recorder.record(res);
+        System.out.print("결과들을 출력하시겠습니까? (y: 출력, 그 외: 출력안함): ");
+        input = scanner.nextLine();
+        if(input.equals("y")){
+            System.out.print("n수 보다 큰 결과물들만 출력하시겠습니까? (y: 큰 수만 출력, 그 외: 출력): ");
+            input = scanner.nextLine();
+            if(input.equals("y")) {
+                System.out.print("n: ");
+                double n = Double.parseDouble(scanner.nextLine());
+                inquiryResults((x) -> (double) x > n);
+            }
+            else {
+                inquiryResults();
+            }
+        }
     }
+
+    @Override
+    public Number calculate(Number num1, Number num2, char op)  throws Exception {
+
+        double firstNum = num1.doubleValue();
+        double secondNum = num2.doubleValue();
+        operatable = operatorParser.parse(op);
+        operatable.operate(firstNum, secondNum);
+        resultRecorder.record(operatable.operate(firstNum, secondNum));
+
+        return resultRecorder.getLatestResult();
+    }
+
 }
