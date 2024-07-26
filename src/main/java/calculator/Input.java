@@ -3,6 +3,7 @@ package calculator;
 import java.util.Scanner;
 
 public class Input {
+
     Scanner scanner = new Scanner(System.in);
 
     public Number inputNumber(String desc) {
@@ -14,6 +15,7 @@ public class Input {
         printDescription(desc);
         return Double.parseDouble(scanner.nextLine());
     }
+
     public char inputChar(String desc) {
         printDescription(desc);
         return scanner.nextLine().charAt(0);

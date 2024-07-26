@@ -1,17 +1,14 @@
 package calculator;
 
 
-import calculator.Operator.Operatable;
-import calculator.Operator.OperatorParser;
-
 public class CalculatorApplication {
 
     private final Calculator circleCalc = new CircleCalculator();
     private final Calculator arithmeticCalc = new ArithmeticCalculator();
     private final Input input = new Input();
-    private final OperatorParser operatorParser = new OperatorParser();
+    private Calculator currentCalculator;
 
-    public void start(){
+    public void start() {
         boolean isExit = false;
 
         while (!isExit) {
@@ -21,24 +18,25 @@ public class CalculatorApplication {
             }
             var type = calcTypeLine.charAt(0);
             try {
-                switch (type){
+                switch (type) {
                     case 'a':
-                        arithmeticCalc(arithmeticCalc);
+                        currentCalculator = arithmeticCalc;
+                        arithmeticCalc();
                         break;
                     case 'c':
-                        circleAreaCalc(circleCalc);
+                        currentCalculator = circleCalc;
+                        circleAreaCalc();
                         break;
                     default:
                         System.out.println("a 혹은 c 를 입력해주세요.");
                         continue;
                 }
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
                 continue;
             }
 
-            if(input.inputString("더 계산하시겠습니까? (exit 입력 시 종료)").equals("exit")){
+            if (input.inputString("더 계산하시겠습니까? (exit 입력 시 종료)").equals("exit")) {
                 isExit = true;
             }
         }
@@ -46,16 +44,14 @@ public class CalculatorApplication {
 
     // 여기 부분은 공통적인 부분을 묶고 싶었는데 과제에 명시된건 둘이 받은 인풋이 다르고
     // 결과를 저장한 후의 행동이 달라서 분리를 해놨습니다. ㅠㅠ
-    private void arithmeticCalc(Calculator currentCalculator) throws Exception {
+    private void arithmeticCalc() throws Exception {
         Number firstNum, secondNum;
 
         firstNum = input.inputNumber("첫 번째 숫자를 입력하세요");
         secondNum = input.inputNumber("두 번째 숫자를 입력하세요");
         char op = input.inputChar("사칙연산 기호를 입력하세요");
-        Operatable operator = operatorParser.parse(op);
-        currentCalculator.setOperator(operator);
-        currentCalculator.setOperands(firstNum, secondNum);
-        currentCalculator.calculate();
+
+        currentCalculator.calculate(firstNum, secondNum, op);
 
         System.out.println("결과: " + currentCalculator.getResult());
 
@@ -75,10 +71,9 @@ public class CalculatorApplication {
         }
     }
 
-    private void circleAreaCalc(Calculator currentCalculator) throws Exception {
+    private void circleAreaCalc() throws Exception {
         double radius = input.inputDouble("반지름을 입력하세요");
-        currentCalculator.setOperands(radius);
-        currentCalculator.calculate();
+        currentCalculator.calculate(radius);
         currentCalculator.inquiryResults();
     }
 

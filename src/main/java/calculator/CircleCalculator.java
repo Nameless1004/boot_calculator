@@ -1,24 +1,14 @@
 package calculator;
 
-import calculator.Operator.Operatable;
-
-public class CircleCalculator extends Calculator{
-    private double radius;
+public class CircleCalculator extends Calculator {
 
     @Override
-    public void setOperator(Operatable operator) {
-        throw new UnsupportedOperationException("지원하지 않습니다.");
-    }
-
-    @Override
-    public void calculate() throws Exception {
-        double res = PI * radius * radius;
+    public void calculate(Object... input) throws Exception {
+        if (input.length != 1 || !(input[0] instanceof Double)) {
+            throw new Exception("원 넓이를 구하려면 피연산자(double) 1개를 입력하세요.");
+        }
+        double radius = ((Double) input[0]).doubleValue();
+        double res = Calculator.PI * radius * radius;
         recorder.record(res);
-    }
-
-    @Override
-    public void setOperands(Number... nums) throws Exception{
-        if(nums.length != 1) throw new Exception("필요 피연산자의 개수는 1개 입니다.");
-        radius = nums[0].doubleValue();
     }
 }

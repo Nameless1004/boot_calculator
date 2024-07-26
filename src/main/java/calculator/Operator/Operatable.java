@@ -1,5 +1,6 @@
 package calculator.Operator;
 
-public interface Operatable{
+public interface Operatable {
+
     <T extends Number> double operate(T a, T b);
 }

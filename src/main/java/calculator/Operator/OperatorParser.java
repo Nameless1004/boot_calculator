@@ -4,19 +4,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OperatorParser {
-    public OperatorParser(){
-        init();
-    }
 
     private Map<Character, OperatorType> opCodeToOpType;
     private Map<OperatorType, Operatable> opTypeToOperator;
 
-    private void init(){
+    public OperatorParser() {
+        init();
+    }
+
+    private void init() {
         initOpCodeToOpType();
         initOpTypeToOperator();
     }
 
-    private void initOpCodeToOpType(){
+    private void initOpCodeToOpType() {
         opCodeToOpType = new HashMap<>();
         opCodeToOpType.put('+', OperatorType.ADD);
         opCodeToOpType.put('-', OperatorType.SUB);
@@ -35,7 +36,7 @@ public class OperatorParser {
     }
 
     public Operatable parse(char opCode) throws Exception {
-        if(!opCodeToOpType.containsKey(opCode)) throw new Exception("+ - * / % 중에 하나를 입력하세요.");
+        if (!opCodeToOpType.containsKey(opCode)) throw new Exception("+ - * / % 중에 하나를 입력하세요.");
         return opTypeToOperator.get(opCodeToOpType.get(opCode));
     }
 }

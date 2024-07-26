@@ -1,37 +1,27 @@
 package calculator;
+
 import calculator.Operator.Operatable;
 import calculator.Operator.OperatorParser;
 
-import java.util.function.Predicate;
+public class ArithmeticCalculator extends Calculator {
 
-public class ArithmeticCalculator extends Calculator{
+    private final OperatorParser opParser;
 
-    private Operatable operator;
-    private Number first;
-    private Number second;
-    @Override
-    public void setOperator(Operatable operator) {
-        this.operator = operator;
+    public ArithmeticCalculator() {
+        opParser = new OperatorParser();
     }
 
     @Override
-    public void setOperands(Number... nums) throws Exception{
-        if (nums.length != 2){
-            throw new Exception("필요 피연산자 수는 2개 입니다.");
+    public void calculate(Object... input) throws Exception {
+        if (input.length != 3) {
+            throw new Exception("사칙연산을 하기 위해선 (n: Number), (n: Number), (opCode : Character)를 입력해주세요");
+        } else if (!(input[0] instanceof Number) || !(input[1] instanceof Number) || !(input[2] instanceof Character)) {
+            throw new Exception("사칙연산을 하기 위해선 (n: Number), (n: Number), (opCode : Character)를 입력해주세요");
         }
-        first = nums[0];
-        second = nums[1];
-    }
 
-    @Override
-    public void calculate() throws Exception {
-        // 추상클래스를 활용한 다형성으로 구현하였습니다.
-        // 나누기의 경우 따로 예외를 던지게 하였습니다.
-
-        /*  자바에서 제네릭에는 원시타입이 들어가지 않고, Integer도 받아야하고 Double도 받아야하므로
-            상위 클래스인 Number로 타입을 지정해주었습니다. */
-
-        var res = operator.operate(first, second);
+        char opCode = (char) input[2];
+        Operatable operator = opParser.parse(opCode);
+        var res = operator.operate((Number) input[0], (Number) input[1]);
         recorder.record(res);
     }
 }
