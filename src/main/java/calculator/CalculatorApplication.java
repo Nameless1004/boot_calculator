@@ -65,8 +65,32 @@ public class CalculatorApplication {
                 return;
             }
 
-            System.out.print("계산을 종료하시겠습니까? (exit: 종료): ");
+            System.out.println("결과 : " + currentFunction.getResult());
+
+            System.out.print("맨 처음 결과를 삭제하시겠습니까? (remove: 삭제): ");
             String input = scanner.nextLine();
+
+            if (input.equals("remove")) {
+                currentFunction.removeHead();
+            }
+
+            System.out.print("결과들을 출력하시겠습니까? (y: 출력, 그 외: 출력안함): ");
+            input = scanner.nextLine();
+            if(input.equals("y")){
+                System.out.print("n수 보다 큰 결과물들만 출력하시겠습니까? (y: 큰 수만 출력, 그 외: 출력): ");
+                input = scanner.nextLine();
+                if(input.equals("y")) {
+                    System.out.print("n: ");
+                    double n = Double.parseDouble(scanner.nextLine());
+                    currentFunction.inquiryResults((x) -> (double) x > n);
+                }
+                else {
+                    currentFunction.inquiryResults();
+                }
+            }
+
+            System.out.print("계산을 종료하시겠습니까? (exit: 종료): ");
+            input = scanner.nextLine();
             if (input.equals("exit")) {
                 isExit = true;
             }
