@@ -1,9 +1,6 @@
 package calculator;
 
-import java.util.ArrayList;
-import java.util.function.Predicate;
-
-public class CircleAreaCalculator extends Calculator {
+public class CircleAreaCalculator extends AbstractCalculator {
     double radius;
     @Override
     public void input() throws Exception {

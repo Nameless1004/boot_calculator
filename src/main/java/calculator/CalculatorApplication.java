@@ -9,7 +9,7 @@ public class CalculatorApplication {
     boolean isExit = false;
     Scanner scanner = new Scanner(System.in);
 
-    Map<Integer, Calculator> calculators;
+    Map<Integer, AbstractCalculator> calculators;
 
     public CalculatorApplication() {
         calculators = new HashMap<>();
@@ -43,18 +43,21 @@ public class CalculatorApplication {
     }
 
     public void update() {
-        System.out.println("계산기를 선택해주세요.");
-        showCalculators();
-        System.out.print("선택(번호 입력): ");
         try {
+            System.out.println("계산기를 선택해주세요.");
+
+            showCalculators();
+
+            System.out.print("선택(번호 입력): ");
             int num = Integer.parseInt(scanner.nextLine());
+
             if(!calculators.containsKey(num)) {
                 System.out.println("1 부터 " + calculators.size() +" 사이의 숫자만 입력해주세요.");
                 return;
             }
 
 
-            Calculator currentFunction;
+            AbstractCalculator currentFunction;
             try {
                 currentFunction = calculators.get(num);
                 currentFunction.input();

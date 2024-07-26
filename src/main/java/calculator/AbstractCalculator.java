@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
-public abstract class Calculator {
+public abstract class AbstractCalculator {
 
-    public Calculator(){
+    public AbstractCalculator(){
         resultRecorder = new ResultRecorder();
         scanner = new Scanner(System.in);
     }
 
-    protected ResultRecorder resultRecorder;
-    protected Scanner scanner;
+    protected final ResultRecorder resultRecorder;
+    protected final Scanner scanner;
 
     public abstract void input() throws Exception;
 

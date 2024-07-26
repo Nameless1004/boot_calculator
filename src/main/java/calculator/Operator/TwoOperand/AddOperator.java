@@ -1,7 +1,5 @@
 package calculator.Operator.TwoOperand;
 
-import calculator.Operator.TwoOperandOpertor;
-
 public class AddOperator implements TwoOperandOpertor {
 
     @Override

@@ -1,9 +1,10 @@
 package calculator;
 
 import calculator.Operator.*;
+import calculator.Operator.OneOperand.OneOperandOperator;
 import calculator.Operator.TwoOperand.*;
 
-public class ArithmeticCalculator extends Calculator {
+public class ArithmeticCalculator extends AbstractCalculator {
     private Number firstNumber;
     private Number secondNumber;
     private Operator operatable;
