@@ -1,74 +1,53 @@
 package calculator;
 
 import calculator.Operator.*;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.function.Predicate;
+import calculator.Operator.TwoOperand.*;
 
 public class ArithmeticCalculator extends Calculator {
-
-    private Operatable operatable;
-    private OperatorParser operatorParser;
+    private Number firstNumber;
+    private Number secondNumber;
+    private Operator operatable;
+    protected OperatorParser operatorParser;
 
     public ArithmeticCalculator() {
         operatorParser = new OperatorParser();
-        operatorParser.addOperator('+', OperatorType.ADD, new AddOperator());
-        operatorParser.addOperator('-', OperatorType.SUB, new SubtractOperator());
-        operatorParser.addOperator('*', OperatorType.MUL, new MultiplyOperator());
-        operatorParser.addOperator('/', OperatorType.DIV, new DivideOperator());
-        operatorParser.addOperator('%', OperatorType.MOD, new ModOperator());
-        operatorParser.addOperator('^', OperatorType.MOD, new PowOperator());
+        operatorParser.addOperator("+", OperatorType.ADD, new AddOperator());
+        operatorParser.addOperator("-", OperatorType.SUB, new SubtractOperator());
+        operatorParser.addOperator("*", OperatorType.MUL, new MultiplyOperator());
+        operatorParser.addOperator("/", OperatorType.DIV, new DivideOperator());
+        operatorParser.addOperator("%", OperatorType.MOD, new ModOperator());
+        operatorParser.addOperator("^", OperatorType.MOD, new PowOperator());
     }
 
     @Override
-    public void onUpdate() throws Exception {
+    public void input() throws Exception {
         System.out.print("첫 번째 숫자를 입력하세요: ");
-        Number firstNumber = NumberParser.parse(scanner.nextLine());
-
-        System.out.print("두 번째 숫자를 입력하세요: ");
-        Number secondNumber = NumberParser.parse(scanner.nextLine());
+        firstNumber = NumberParser.parse(scanner.nextLine());
 
         System.out.print(operatorParser.toString() + "를 입력하세요: ");
-        char op = scanner.nextLine().charAt(0);
+        String op = scanner.nextLine();
+        operatable = operatorParser.parse(op);
 
-        calculate(firstNumber, secondNumber, op);
-
-        System.out.println("결과 : " + resultRecorder.getLatestResult());
-
-        System.out.print("맨 처음 결과를 삭제하시겠습니까? (remove: 삭제): ");
-        String input = scanner.nextLine();
-
-        if (input.equals("remove")) {
-            removeHead();
-        }
-
-        System.out.print("결과들을 출력하시겠습니까? (y: 출력, 그 외: 출력안함): ");
-        input = scanner.nextLine();
-        if(input.equals("y")){
-            System.out.print("n수 보다 큰 결과물들만 출력하시겠습니까? (y: 큰 수만 출력, 그 외: 출력): ");
-            input = scanner.nextLine();
-            if(input.equals("y")) {
-                System.out.print("n: ");
-                double n = Double.parseDouble(scanner.nextLine());
-                inquiryResults((x) -> (double) x > n);
-            }
-            else {
-                inquiryResults();
-            }
+        if(operatable instanceof TwoOperandOpertor){
+            System.out.print("두 번째 숫자를 입력하세요: ");
+            secondNumber = NumberParser.parse(scanner.nextLine());
+        } else {
+            secondNumber = null;
         }
     }
 
     @Override
-    protected Number calculate(Number num1, Number num2, char op)  throws Exception {
+    public Number calculate() {
+        Number num;
+        if(operatable instanceof TwoOperandOpertor){
+            num = ((TwoOperandOpertor) operatable).operate(firstNumber.doubleValue(), secondNumber.doubleValue());
+        } else {
+          num = ((OneOperandOperator) operatable).operate(firstNumber.doubleValue());
+        }
 
-        double firstNum = num1.doubleValue();
-        double secondNum = num2.doubleValue();
-        operatable = operatorParser.parse(op);
-        operatable.operate(firstNum, secondNum);
-        resultRecorder.record(operatable.operate(firstNum, secondNum));
-
+        resultRecorder.record(num);
         return resultRecorder.getLatestResult();
     }
+
 
 }

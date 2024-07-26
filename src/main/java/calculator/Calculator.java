@@ -14,15 +14,9 @@ public abstract class Calculator {
     protected ResultRecorder resultRecorder;
     protected Scanner scanner;
 
-    public abstract void onUpdate() throws Exception;
+    public abstract void input() throws Exception;
 
-    protected Number calculate(Number num) throws Exception {
-        throw new Exception("지원하지 않는 기능입니다.");
-    }
-
-    protected Number calculate(Number num, Number num2, char op) throws Exception {
-        throw new Exception("지원하지 않는 기능입니다.");
-    }
+    public abstract Number calculate() throws Exception;
 
     protected final Number getResult() {
         return resultRecorder.getLatestResult();

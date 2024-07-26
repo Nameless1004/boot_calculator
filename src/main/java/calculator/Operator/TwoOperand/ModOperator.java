@@ -1,6 +1,8 @@
-package calculator.Operator;
+package calculator.Operator.TwoOperand;
 
-public class ModOperator implements Operatable {
+import calculator.Operator.TwoOperandOpertor;
+
+public class ModOperator implements TwoOperandOpertor {
 
     @Override
     public double operate(double a, double b) {

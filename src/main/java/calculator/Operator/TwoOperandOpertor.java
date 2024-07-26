@@ -1,5 +1,5 @@
 package calculator.Operator;
 
-public interface Operatable {
+public interface TwoOperandOpertor extends Operator{
     double operate(double a, double b);
 }

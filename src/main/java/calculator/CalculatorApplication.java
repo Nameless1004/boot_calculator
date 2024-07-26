@@ -1,15 +1,11 @@
 package calculator;
 
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class CalculatorApplication {
-
-    private final Calculator circleCalc = new CircleAreaCalculator();
-    private final Calculator arithmeticCalc = new ArithmeticCalculator();
     boolean isExit = false;
     Scanner scanner = new Scanner(System.in);
 
@@ -27,6 +23,7 @@ public class CalculatorApplication {
     private void initializeCalculators() {
         calculators.put(1,new ArithmeticCalculator());
         calculators.put(2,new CircleAreaCalculator());
+        calculators.put(3,new ScientificCalculator());
     }
 
     public void start() {
@@ -35,6 +32,7 @@ public class CalculatorApplication {
             update();
         }
     }
+
 
     private void showCalculators(){
         System.out.println("--------------------");
@@ -59,11 +57,13 @@ public class CalculatorApplication {
             Calculator currentFunction;
             try {
                 currentFunction = calculators.get(num);
-                currentFunction.onUpdate();
+                currentFunction.input();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 return;
             }
+
+            currentFunction.calculate();
 
             System.out.println("결과 : " + currentFunction.getResult());
 
@@ -94,7 +94,7 @@ public class CalculatorApplication {
             if (input.equals("exit")) {
                 isExit = true;
             }
-        }  catch (NumberFormatException e) {
+        }  catch (Exception e) {
             System.out.println(e.getMessage());
         }
 

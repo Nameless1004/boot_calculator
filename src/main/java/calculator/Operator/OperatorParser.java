@@ -5,20 +5,20 @@ import java.util.Map;
 
 public class OperatorParser {
 
-    private Map<Character, OperatorType> opCodeToOpType;
-    private Map<OperatorType, Operatable> opTypeToOperator;
+    private Map<String, OperatorType> opCodeToOpType;
+    private Map<OperatorType, Operator> opTypeToOperator;
 
     public OperatorParser() {
         opCodeToOpType = new HashMap<>();
         opTypeToOperator = new HashMap<>();
     }
 
-    public void addOperator(char opCharacter, OperatorType type, Operatable operator) {
-        opCodeToOpType.put(opCharacter, type);
+    public void addOperator(String opCode, OperatorType type, Operator operator) {
+        opCodeToOpType.put(opCode, type);
         opTypeToOperator.put(type, operator);
     }
 
-    public Operatable parse(char opCode) throws Exception {
+    public Operator parse(String opCode) throws Exception {
         if (!opCodeToOpType.containsKey(opCode)){
             StringBuilder sb = new StringBuilder();
             sb.append(toString());

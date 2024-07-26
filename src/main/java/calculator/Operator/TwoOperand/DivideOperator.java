@@ -1,6 +1,8 @@
-package calculator.Operator;
+package calculator.Operator.TwoOperand;
 
-public class DivideOperator implements Operatable {
+import calculator.Operator.TwoOperandOpertor;
+
+public class DivideOperator implements TwoOperandOpertor {
 
     @Override
     public double operate(double a, double b)  throws ArithmeticException {

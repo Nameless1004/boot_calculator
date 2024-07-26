@@ -4,25 +4,19 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 public class CircleAreaCalculator extends Calculator {
-
+    double radius;
     @Override
-    public void onUpdate() throws Exception {
+    public void input() throws Exception {
         System.out.print("반지름을 입력하세요: ");
         Number radius = NumberParser.parse(scanner.nextLine());
 
-        double result = calculate(radius).doubleValue();
-        resultRecorder.record(result);
-
-        System.out.println("결과 : " + result);
-
-        System.out.println("--- 결과물들 출력 ---");
-        inquiryResults();
+        this.radius = radius.doubleValue();
     }
 
-
     @Override
-    protected Number calculate(Number num) {
-        double radius = num.doubleValue();
-        return radius * radius * Math.PI;
+    public Number calculate() {
+        double result = radius * radius * Math.PI;
+        resultRecorder.record(result);
+        return resultRecorder.getLatestResult();
     }
 }
