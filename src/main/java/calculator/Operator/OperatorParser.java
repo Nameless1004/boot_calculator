@@ -13,10 +13,12 @@ public class OperatorParser {
         opTypeToOperator = new HashMap<>();
     }
 
-    public void addOperator(String opCode, OperatorType type, Operator operator) {
+    public OperatorParser addOperator(String opCode, OperatorType type, Operator operator) {
         opCodeToOpType.put(opCode, type);
         opTypeToOperator.put(type, operator);
+        return this;
     }
+
 
     public Operator parse(String opCode) throws Exception {
         if (!opCodeToOpType.containsKey(opCode)){

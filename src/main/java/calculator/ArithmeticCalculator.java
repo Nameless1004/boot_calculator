@@ -1,23 +1,26 @@
 package calculator;
 
 import calculator.Operator.*;
-import calculator.Operator.OneOperand.OneOperandOperator;
-import calculator.Operator.TwoOperand.*;
+import calculator.Operator.UnaryOperator.UnaryOperator;
+import calculator.Operator.BinaryOperator.*;
 
 public class ArithmeticCalculator extends AbstractCalculator {
     private Number firstNumber;
     private Number secondNumber;
-    private Operator operatable;
     protected OperatorParser operatorParser;
 
     public ArithmeticCalculator() {
-        operatorParser = new OperatorParser();
-        operatorParser.addOperator("+", OperatorType.ADD, new AddOperator());
-        operatorParser.addOperator("-", OperatorType.SUB, new SubtractOperator());
-        operatorParser.addOperator("*", OperatorType.MUL, new MultiplyOperator());
-        operatorParser.addOperator("/", OperatorType.DIV, new DivideOperator());
-        operatorParser.addOperator("%", OperatorType.MOD, new ModOperator());
-        operatorParser.addOperator("^", OperatorType.MOD, new PowOperator());
+        initOperators();
+    }
+
+    @Override
+    public void initOperators() {
+        operatorParser = new OperatorParser().addOperator("+", OperatorType.ADD, new AddOperator())
+                .addOperator("-", OperatorType.SUB, new SubtractOperator())
+                .addOperator("*", OperatorType.MUL, new MultiplyOperator())
+                .addOperator("/", OperatorType.DIV, new DivideOperator())
+                .addOperator("%", OperatorType.MOD, new ModOperator())
+                .addOperator("^", OperatorType.POW, new PowOperator());
     }
 
     @Override
@@ -27,9 +30,11 @@ public class ArithmeticCalculator extends AbstractCalculator {
 
         System.out.print(operatorParser.toString() + "를 입력하세요: ");
         String op = scanner.nextLine();
+
+        // operatorParser 객체에게 파싱 요청
         operatable = operatorParser.parse(op);
 
-        if(operatable instanceof TwoOperandOpertor){
+        if(operatable instanceof BinaryOperator){
             System.out.print("두 번째 숫자를 입력하세요: ");
             secondNumber = NumberParser.parse(scanner.nextLine());
         } else {
@@ -40,10 +45,10 @@ public class ArithmeticCalculator extends AbstractCalculator {
     @Override
     public Number calculate() {
         Number num;
-        if(operatable instanceof TwoOperandOpertor){
-            num = ((TwoOperandOpertor) operatable).operate(firstNumber.doubleValue(), secondNumber.doubleValue());
+        if(operatable instanceof BinaryOperator){
+            num = operatable.operate(firstNumber.doubleValue(), secondNumber.doubleValue());
         } else {
-          num = ((OneOperandOperator) operatable).operate(firstNumber.doubleValue());
+          num = operatable.operate(firstNumber.doubleValue());
         }
 
         resultRecorder.record(num);

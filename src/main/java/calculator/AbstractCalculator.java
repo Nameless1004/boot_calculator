@@ -1,5 +1,7 @@
 package calculator;
 
+import calculator.Operator.Operator;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.function.Predicate;
@@ -13,9 +15,10 @@ public abstract class AbstractCalculator {
 
     protected final ResultRecorder resultRecorder;
     protected final Scanner scanner;
+    protected Operator operatable;
 
+    public abstract void initOperators();
     public abstract void input() throws Exception;
-
     public abstract Number calculate() throws Exception;
 
     protected final Number getResult() {

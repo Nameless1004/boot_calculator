@@ -1,7 +1,21 @@
 package calculator;
 
+import calculator.Operator.UnaryOperator.CircleAreaOperator;
+import calculator.Operator.UnaryOperator.UnaryOperator;
+
 public class CircleAreaCalculator extends AbstractCalculator {
+
     double radius;
+
+    public CircleAreaCalculator() {
+        initOperators();
+    }
+
+    @Override
+    public void initOperators() {
+        operatable = new CircleAreaOperator();
+    }
+
     @Override
     public void input() throws Exception {
         System.out.print("반지름을 입력하세요: ");
@@ -12,7 +26,7 @@ public class CircleAreaCalculator extends AbstractCalculator {
 
     @Override
     public Number calculate() {
-        double result = radius * radius * Math.PI;
+        double result = operatable.operate(radius);
         resultRecorder.record(result);
         return resultRecorder.getLatestResult();
     }

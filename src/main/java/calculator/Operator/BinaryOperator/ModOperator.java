@@ -1,6 +1,6 @@
-package calculator.Operator.TwoOperand;
+package calculator.Operator.BinaryOperator;
 
-public class ModOperator implements TwoOperandOpertor {
+public class ModOperator extends BinaryOperator {
 
     @Override
     public double operate(double a, double b) {
