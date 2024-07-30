@@ -1,5 +1,8 @@
 package calculator;
 
+import calculator.Operator.Operator;
+import calculator.Operator.OperatorType;
+
 public class CircleAreaCalculator extends AbstractCalculator {
 
     double radius;
@@ -16,5 +19,10 @@ public class CircleAreaCalculator extends AbstractCalculator {
         double result = operatable.operate(radius);
         resultRecorder.record(result);
         return resultRecorder.getLatestResult();
+    }
+
+    @Override
+    public AbstractCalculator addSupportOperator(String code, OperatorType type, Operator operator){
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

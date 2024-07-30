@@ -12,8 +12,8 @@ import java.util.function.Predicate;
 public abstract class AbstractCalculator implements ICalculator {
 
     protected Operator operatable;
-    protected final OperatorParser operatorParser;
     protected final Recordable<Number> resultRecorder;
+    protected final OperatorParser operatorParser;
     protected final Scanner scanner;
 
     public AbstractCalculator(){
