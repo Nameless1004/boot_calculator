@@ -1,10 +1,18 @@
 package calculator;
 
 import calculator.Operator.BinaryOperator.*;
+import calculator.Operator.OperatorParser;
+import calculator.recorder.Recordable;
+
+import java.util.Scanner;
 
 public class ArithmeticCalculator extends AbstractCalculator {
     private Number firstNumber;
     private Number secondNumber;
+
+    public ArithmeticCalculator(OperatorParser operatorParser, Scanner scanner, Recordable<Number> resultRecorder) {
+        super(operatorParser, scanner, resultRecorder);
+    }
 
     @Override
     public void input() throws Exception {

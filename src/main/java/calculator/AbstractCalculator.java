@@ -16,10 +16,10 @@ public abstract class AbstractCalculator implements ICalculator {
     protected final OperatorParser operatorParser;
     protected final Scanner scanner;
 
-    public AbstractCalculator(){
-        scanner = new Scanner(System.in);
-        operatorParser = new OperatorParser();
-        resultRecorder = new ResultRecorder();
+    public AbstractCalculator(OperatorParser operatorParser, Scanner scanner, Recordable<Number> resultRecorder){
+        this.scanner = scanner;
+        this.operatorParser = operatorParser;
+        this.resultRecorder = resultRecorder;
     }
 
 

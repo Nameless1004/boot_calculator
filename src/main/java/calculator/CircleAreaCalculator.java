@@ -1,11 +1,19 @@
 package calculator;
 
 import calculator.Operator.Operator;
+import calculator.Operator.OperatorParser;
 import calculator.Operator.OperatorType;
+import calculator.recorder.Recordable;
+
+import java.util.Scanner;
 
 public class CircleAreaCalculator extends AbstractCalculator {
 
     double radius;
+
+    public CircleAreaCalculator(OperatorParser operatorParser, Scanner scanner, Recordable<Number> resultRecorder) {
+        super(operatorParser, scanner, resultRecorder);
+    }
 
     @Override
     public void input() throws Exception {

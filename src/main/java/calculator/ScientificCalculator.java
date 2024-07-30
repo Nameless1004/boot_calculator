@@ -1,11 +1,19 @@
 package calculator;
 
 import calculator.Operator.BinaryOperator.BinaryOperator;
+import calculator.Operator.OperatorParser;
+import calculator.recorder.Recordable;
+
+import java.util.Scanner;
 
 public class ScientificCalculator extends AbstractCalculator{
 
     private Number firstNumber;
     private Number secondNumber;
+
+    public ScientificCalculator(OperatorParser operatorParser, Scanner scanner, Recordable<Number> resultRecorder) {
+        super(operatorParser, scanner, resultRecorder);
+    }
 
     @Override
     public void input() throws Exception {

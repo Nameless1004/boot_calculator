@@ -1,10 +1,16 @@
 package calculator;
 
 import calculator.Operator.BinaryOperator.*;
+import calculator.Operator.OperatorParser;
 import calculator.Operator.OperatorType;
 import calculator.Operator.UnaryOperator.*;
+import calculator.recorder.Recordable;
+import calculator.recorder.ResultRecorder;
+
+import java.util.Scanner;
 
 public class AppConfig {
+
     public ICalculator[] calculators(){
         return new ICalculator[]{
                 ArithmeticCalculator(),
@@ -14,21 +20,33 @@ public class AppConfig {
     }
 
     public ICalculator ArithmeticCalculator(){
-        ICalculator arithmeticCalculator = new ArithmeticCalculator();
+        ICalculator arithmeticCalculator = new ArithmeticCalculator(operatorParser(), scanner(), recorder());
         setArithmeticCalculatorSupprotOperator(arithmeticCalculator);
         return arithmeticCalculator;
     }
 
     public ICalculator ScientificCalculator(){
-        ICalculator scientificCalculator = new ScientificCalculator();
+        ICalculator scientificCalculator = new ScientificCalculator(operatorParser(), scanner(), recorder());
         setScientificCalculatorSupportOperator(scientificCalculator);
         return scientificCalculator;
     }
 
     public ICalculator CircleAreaCalculator(){
-        ICalculator scientificCalculator = new CircleAreaCalculator();
+        ICalculator scientificCalculator = new CircleAreaCalculator(operatorParser(), scanner(), recorder());
         setCircleAreaCalculatorSupportOperator(scientificCalculator);
         return scientificCalculator;
+    }
+
+    public Scanner scanner(){
+        return new Scanner(System.in);
+    }
+
+    public OperatorParser operatorParser(){
+        return new OperatorParser();
+    }
+
+    public Recordable<Number> recorder(){
+        return new ResultRecorder();
     }
 
     public void setArithmeticCalculatorSupprotOperator(ICalculator calculator){

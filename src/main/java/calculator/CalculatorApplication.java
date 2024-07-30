@@ -83,7 +83,7 @@ public class CalculatorApplication {
                 if(input.equals("y")) {
                     System.out.print("n: ");
                     double n = Double.parseDouble(scanner.nextLine());
-                    currentCalculator.inquiryResults((x) -> (double) x > n);
+                    currentCalculator.inquiryResults((x) -> x.doubleValue() > n);
                 }
                 else {
                     currentCalculator.inquiryResults();
