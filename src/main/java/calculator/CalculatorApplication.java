@@ -1,6 +1,5 @@
 package calculator;
 
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -8,22 +7,21 @@ import java.util.Scanner;
 public class CalculatorApplication {
     boolean isExit = false;
     Scanner scanner = new Scanner(System.in);
-
-    Map<Integer, AbstractCalculator> calculators;
+    AppConfig config = new AppConfig();
+    Map<Integer, ICalculator> calculators;
 
     public CalculatorApplication() {
         calculators = new HashMap<>();
-        init();
-    }
-
-    private void init() {
         initializeCalculators();
     }
 
+
     private void initializeCalculators() {
-        calculators.put(1,new ArithmeticCalculator());
-        calculators.put(2,new CircleAreaCalculator());
-        calculators.put(3,new ScientificCalculator());
+        ICalculator[] supportCalculators = config.calculators();
+
+        for(int i = 0; i < supportCalculators.length; ++i){
+            calculators.put(i+1, supportCalculators[i]);
+        }
     }
 
     public void start() {
@@ -57,24 +55,24 @@ public class CalculatorApplication {
             }
 
 
-            AbstractCalculator currentFunction;
+            ICalculator currentCalculator;
             try {
-                currentFunction = calculators.get(num);
-                currentFunction.input();
+                currentCalculator = calculators.get(num);
+                currentCalculator.input();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 return;
             }
 
-            currentFunction.calculate();
+            currentCalculator.calculate();
 
-            System.out.println("결과 : " + currentFunction.getResult());
+            System.out.println("결과 : " + currentCalculator.getResult());
 
             System.out.print("맨 처음 결과를 삭제하시겠습니까? (remove: 삭제): ");
             String input = scanner.nextLine();
 
             if (input.equals("remove")) {
-                currentFunction.removeHead();
+                currentCalculator.removeFirstRecordData();
             }
 
             System.out.print("결과들을 출력하시겠습니까? (y: 출력, 그 외: 출력안함): ");
@@ -85,10 +83,10 @@ public class CalculatorApplication {
                 if(input.equals("y")) {
                     System.out.print("n: ");
                     double n = Double.parseDouble(scanner.nextLine());
-                    currentFunction.inquiryResults((x) -> (double) x > n);
+                    currentCalculator.inquiryResults((x) -> (double) x > n);
                 }
                 else {
-                    currentFunction.inquiryResults();
+                    currentCalculator.inquiryResults();
                 }
             }
 

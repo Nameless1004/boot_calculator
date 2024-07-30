@@ -1,20 +1,42 @@
 package calculator;
 
-import calculator.Operator.UnaryOperator.AcosOperator;
-import calculator.Operator.UnaryOperator.CosOperator;
-import calculator.Operator.UnaryOperator.SinOperator;
-import calculator.Operator.UnaryOperator.TanOperator;
-import calculator.Operator.OperatorType;
+import calculator.Operator.BinaryOperator.BinaryOperator;
 
-public class ScientificCalculator extends ArithmeticCalculator{
+public class ScientificCalculator extends AbstractCalculator{
+
+    private Number firstNumber;
+    private Number secondNumber;
 
     @Override
-    public void initOperators(){
-        super.initOperators();
-        operatorParser.addOperator("sin", OperatorType.SIN, new SinOperator())
-                .addOperator("cos", OperatorType.COS, new CosOperator())
-                .addOperator("tan", OperatorType.TAN, new TanOperator())
-                .addOperator("acos", OperatorType.ACOS, new AcosOperator());
+    public void input() throws Exception {
+        System.out.print("첫 번째 숫자를 입력하세요: ");
+        firstNumber = NumberParser.parse(scanner.nextLine());
+
+        System.out.print(operatorParser.toString() + "를 입력하세요: ");
+        String op = scanner.nextLine();
+
+        // operatorParser 객체에게 파싱 요청
+        operatable = operatorParser.parse(op);
+
+        if(operatable instanceof BinaryOperator){
+            System.out.print("두 번째 숫자를 입력하세요: ");
+            secondNumber = NumberParser.parse(scanner.nextLine());
+        } else {
+            secondNumber = null;
+        }
+    }
+
+    @Override
+    public Number calculate() throws Exception {
+        Number num;
+        if(operatable instanceof BinaryOperator){
+            num = operatable.operate(firstNumber.doubleValue(), secondNumber.doubleValue());
+        } else {
+            num = operatable.operate(firstNumber.doubleValue());
+        }
+
+        resultRecorder.record(num);
+        return resultRecorder.getLatestResult();
     }
 
 }

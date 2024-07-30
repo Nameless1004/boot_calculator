@@ -1,7 +1,6 @@
 package calculator.Operator;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class OperatorParser {
 
@@ -32,8 +31,10 @@ public class OperatorParser {
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
+        List<String> keys = new ArrayList<>(opCodeToOpType.keySet());
+        keys.sort(String::compareTo);
         sb.append("[");
-        opCodeToOpType.forEach((x, y)-> sb.append(" " + "'" +x+ "'" + " "));
+        keys.forEach((x)-> sb.append(" " + "'" +x+ "'" + " "));
         sb.append("]");
         return sb.toString();
     }
