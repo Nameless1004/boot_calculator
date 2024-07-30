@@ -11,8 +11,8 @@ public class ScientificCalculator extends AbstractCalculator{
     private Number firstNumber;
     private Number secondNumber;
 
-    public ScientificCalculator(OperatorParser operatorParser, Scanner scanner, Recordable<Number> resultRecorder) {
-        super(operatorParser, scanner, resultRecorder);
+    public ScientificCalculator(OperatorParser operatorParser, Scanner scanner) {
+        super(operatorParser, scanner);
     }
 
     @Override
@@ -43,8 +43,7 @@ public class ScientificCalculator extends AbstractCalculator{
             num = operatable.operate(firstNumber.doubleValue());
         }
 
-        resultRecorder.record(num);
-        return resultRecorder.getLatestResult();
+       return num;
     }
 
 }

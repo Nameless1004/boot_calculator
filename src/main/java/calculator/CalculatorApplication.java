@@ -1,17 +1,25 @@
 package calculator;
 
+import calculator.recorder.Recordable;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 public class CalculatorApplication {
-    boolean isExit = false;
-    Scanner scanner = new Scanner(System.in);
-    AppConfig config = new AppConfig();
-    Map<Integer, ICalculator> calculators;
+    private boolean isExit = false;
+    private Scanner scanner = new Scanner(System.in);
+    private AppConfig config = new AppConfig();
+
+    private ICalculator currentCalculator;
+    private final Map<Integer, ICalculator> calculators;
+    private final Map<ICalculator, Recordable<Number>> resultRecorder;
 
     public CalculatorApplication() {
         calculators = new HashMap<>();
+        resultRecorder = new HashMap<>();
+
         initializeCalculators();
     }
 
@@ -21,6 +29,7 @@ public class CalculatorApplication {
 
         for(int i = 0; i < supportCalculators.length; ++i){
             calculators.put(i+1, supportCalculators[i]);
+            resultRecorder.put(supportCalculators[i], config.recorder());
         }
     }
 
@@ -54,8 +63,6 @@ public class CalculatorApplication {
                 return;
             }
 
-
-            ICalculator currentCalculator;
             try {
                 currentCalculator = calculators.get(num);
                 currentCalculator.input();
@@ -64,15 +71,16 @@ public class CalculatorApplication {
                 return;
             }
 
-            currentCalculator.calculate();
+            Number result = currentCalculator.calculate();
+            record(result);
 
-            System.out.println("결과 : " + currentCalculator.getResult());
+            System.out.println("결과 : " + getResult());
 
             System.out.print("맨 처음 결과를 삭제하시겠습니까? (remove: 삭제): ");
             String input = scanner.nextLine();
 
             if (input.equals("remove")) {
-                currentCalculator.removeFirstRecordData();
+                removeFirstRecordData();
             }
 
             System.out.print("결과들을 출력하시겠습니까? (y: 출력, 그 외: 출력안함): ");
@@ -83,10 +91,10 @@ public class CalculatorApplication {
                 if(input.equals("y")) {
                     System.out.print("n: ");
                     double n = Double.parseDouble(scanner.nextLine());
-                    currentCalculator.inquiryResults((x) -> x.doubleValue() > n);
+                    inquiryResults((x) -> x.doubleValue() > n);
                 }
                 else {
-                    currentCalculator.inquiryResults();
+                    inquiryResults();
                 }
             }
 
@@ -98,6 +106,25 @@ public class CalculatorApplication {
         }  catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
 
+    public void record(Number result){
+        resultRecorder.get(currentCalculator).record(result);
+    }
+
+    public void removeFirstRecordData(){
+        resultRecorder.get(currentCalculator).remove();
+    }
+
+    public Number getResult() {
+        return resultRecorder.get(currentCalculator).getLatestResult();
+    }
+
+    public void inquiryResults() {
+        resultRecorder.get(currentCalculator).stream().forEach(System.out::println);
+    }
+
+    public final void inquiryResults(Predicate<Number> predicate) {
+        resultRecorder.get(currentCalculator).stream().filter(predicate).forEach(System.out::println);
     }
 }

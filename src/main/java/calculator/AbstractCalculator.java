@@ -12,14 +12,12 @@ import java.util.function.Predicate;
 public abstract class AbstractCalculator implements ICalculator {
 
     protected Operator operatable;
-    protected final Recordable<Number> resultRecorder;
     protected final OperatorParser operatorParser;
     protected final Scanner scanner;
 
-    public AbstractCalculator(OperatorParser operatorParser, Scanner scanner, Recordable<Number> resultRecorder){
+    public AbstractCalculator(OperatorParser operatorParser, Scanner scanner){
         this.scanner = scanner;
         this.operatorParser = operatorParser;
-        this.resultRecorder = resultRecorder;
     }
 
 
@@ -32,20 +30,6 @@ public abstract class AbstractCalculator implements ICalculator {
         operatable = operator;
     }
 
-    public final void removeFirstRecordData(){
-        resultRecorder.remove();
-    }
 
-    public final Number getResult() {
-        return resultRecorder.getLatestResult();
-    }
-
-    public final void inquiryResults() {
-        resultRecorder.stream().forEach(System.out::println);
-    }
-
-    public final void inquiryResults(Predicate<Number> predicate) {
-        resultRecorder.stream().filter(predicate).forEach(System.out::println);
-    }
 
 }

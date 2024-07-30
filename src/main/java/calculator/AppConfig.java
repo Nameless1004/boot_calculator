@@ -20,19 +20,19 @@ public class AppConfig {
     }
 
     public ICalculator ArithmeticCalculator(){
-        ICalculator arithmeticCalculator = new ArithmeticCalculator(operatorParser(), scanner(), recorder());
+        ICalculator arithmeticCalculator = new ArithmeticCalculator(operatorParser(), scanner());
         setArithmeticCalculatorSupprotOperator(arithmeticCalculator);
         return arithmeticCalculator;
     }
 
     public ICalculator ScientificCalculator(){
-        ICalculator scientificCalculator = new ScientificCalculator(operatorParser(), scanner(), recorder());
+        ICalculator scientificCalculator = new ScientificCalculator(operatorParser(), scanner());
         setScientificCalculatorSupportOperator(scientificCalculator);
         return scientificCalculator;
     }
 
     public ICalculator CircleAreaCalculator(){
-        ICalculator scientificCalculator = new CircleAreaCalculator(operatorParser(), scanner(), recorder());
+        ICalculator scientificCalculator = new CircleAreaCalculator(operatorParser(), scanner());
         setCircleAreaCalculatorSupportOperator(scientificCalculator);
         return scientificCalculator;
     }

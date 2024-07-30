@@ -11,8 +11,8 @@ public class CircleAreaCalculator extends AbstractCalculator {
 
     double radius;
 
-    public CircleAreaCalculator(OperatorParser operatorParser, Scanner scanner, Recordable<Number> resultRecorder) {
-        super(operatorParser, scanner, resultRecorder);
+    public CircleAreaCalculator(OperatorParser operatorParser, Scanner scanner) {
+        super(operatorParser, scanner);
     }
 
     @Override
@@ -25,8 +25,8 @@ public class CircleAreaCalculator extends AbstractCalculator {
     @Override
     public Number calculate() {
         double result = operatable.operate(radius);
-        resultRecorder.record(result);
-        return resultRecorder.getLatestResult();
+
+        return result;
     }
 
     @Override

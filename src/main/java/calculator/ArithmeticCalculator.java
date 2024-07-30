@@ -10,8 +10,8 @@ public class ArithmeticCalculator extends AbstractCalculator {
     private Number firstNumber;
     private Number secondNumber;
 
-    public ArithmeticCalculator(OperatorParser operatorParser, Scanner scanner, Recordable<Number> resultRecorder) {
-        super(operatorParser, scanner, resultRecorder);
+    public ArithmeticCalculator(OperatorParser operatorParser, Scanner scanner) {
+        super(operatorParser, scanner);
     }
 
     @Override
@@ -42,8 +42,7 @@ public class ArithmeticCalculator extends AbstractCalculator {
           num = operatable.operate(firstNumber.doubleValue());
         }
 
-        resultRecorder.record(num);
-        return resultRecorder.getLatestResult();
+        return num;
     }
 
 }
